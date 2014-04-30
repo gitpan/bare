@@ -5,7 +5,7 @@ use warnings;
 
 package bare;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 my %forbidden = map { $_ => 1 } qw(
   if else elsif unless while until for foreach continue redo
@@ -75,11 +75,13 @@ variable $foo. You can, however, localize such a variable like so:
   }
   die unless foo==3;
 
-To interpolate a bare in a string, you will have to use a sigil, eg:
+There are various other cases where you will have to use a sigil, eg:
 
-  use bare 'x';
+  To interpolate a bare in a string:
+    use bare 'x'; print "x=$x"
 
-  print "x=$x";
+  For use on a loop variable, eg:
+    use bare 'x'; for $x (0..20) { ... }
 
 bares are implemented as subs, so sigil-less access is quite a bit
 slower than "native" scalars that use sigils. For code where
